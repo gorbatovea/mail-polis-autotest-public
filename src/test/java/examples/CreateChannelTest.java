@@ -5,15 +5,20 @@ import core.page.LoginPage;
 import core.page.UserMainPage;
 import core.TestBase;
 import core.page.VideoPage;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ChannelTest extends TestBase {
+public class CreateChannelTest extends TestBase {
     protected Bot loginBot;
 
     @Before
     public void init() {
         this.loginBot = Bot.generateDefault();
+    }
+
+    public void prepare() {
+
     }
 
     @Test
@@ -27,14 +32,8 @@ public class ChannelTest extends TestBase {
         videoPage.createChannel();
     }
 
-    @Test
-    public void removeChannel() {
-        LoginPage session = new LoginPage(driver);
-        session.doLogin(this.loginBot);
-        UserMainPage userMainPage = new UserMainPage(driver);
-        userMainPage.navigateToVideos();
+    public void cleanUp() {
         VideoPage videoPage = new VideoPage(driver);
-        videoPage.expandMyVideos();
         videoPage.removeChannel();
     }
 }

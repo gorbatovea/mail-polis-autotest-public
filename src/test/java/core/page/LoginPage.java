@@ -4,6 +4,9 @@ import bot.Bot;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static org.junit.Assert.*;
 
 public class LoginPage extends PageBase {
 
@@ -12,7 +15,6 @@ public class LoginPage extends PageBase {
     }
 
     public  void doLogin(Bot bot) {
-        getBy("https://ok.ru/");
         typeKeys(By.id("field_email"), bot.getEmail());
         typeKeys(By.id("field_password"), bot.getPwd());
         typeKeys(By.id("field_password"), Keys.ENTER);
@@ -23,7 +25,12 @@ public class LoginPage extends PageBase {
     }
 
     @Override
-    protected void check(boolean condition, By by) {
-
+    protected void check() {
+        assertTrue(
+                explicitWait(
+                        ExpectedConditions.visibilityOfElementLocated(
+                                By.xpath("//div[@class='anonym_login_cnt js-login-state']")),
+                        10,
+                        500));
     }
 }

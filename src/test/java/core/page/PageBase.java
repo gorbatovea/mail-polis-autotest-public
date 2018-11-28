@@ -13,6 +13,7 @@ abstract public class PageBase {
 
     public PageBase(WebDriver webDriver) {
         this.driver = webDriver;
+        check();
     }
 
     protected WebElement get (By by) {
@@ -43,7 +44,8 @@ abstract public class PageBase {
                 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             } else {
                 throw new IllegalArgumentException("Driver shouldnt be null");
-            }        }
+            }
+        }
     }
 
     private void checkConditionTimeouts(long maxCheckTimeInSeconds, long millisecondsBetweenChecks) {
@@ -70,13 +72,5 @@ abstract public class PageBase {
         }
     }
 
-    protected void waitFor(int ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected abstract void check(boolean condition, By by);
+    protected abstract void check();
 }
