@@ -8,16 +8,16 @@ import core.page.VideoPage;
 import org.junit.Before;
 import org.junit.Test;
 
-public class VideoTest extends TestBase {
+public class RemoveVideoTest extends TestBase {
     protected Bot loginBot;
 
     @Before
     public void init() {
         this.loginBot = Bot.generateDefault();
+        prepare();
     }
 
-    @Test
-    public void addVideoByUrl() {
+    private void prepare() {
         LoginPage session = new LoginPage(driver);
         session.doLogin(this.loginBot);
         UserMainPage userMainPage = new UserMainPage(driver);
@@ -25,31 +25,15 @@ public class VideoTest extends TestBase {
         VideoPage videoPage = new VideoPage(driver);
         videoPage.expandMyVideos();
         videoPage.addVideo();
-    }
-
-    @Test
-    public void searchVideo() {
-        LoginPage session = new LoginPage(driver);
-        session.doLogin(this.loginBot);
-        UserMainPage userMainPage = new UserMainPage(driver);
-        userMainPage.navigateToVideos();
-        VideoPage videoPage = new VideoPage(driver);
-        videoPage.searchVideo();
+        driver.get(baseUrl);
     }
 
     @Test
     public void removeVideo() {
-        LoginPage session = new LoginPage(driver);
-        session.doLogin(this.loginBot);
         UserMainPage userMainPage = new UserMainPage(driver);
         userMainPage.navigateToVideos();
         VideoPage videoPage = new VideoPage(driver);
-        videoPage.expandMyVideos();
         videoPage.removeVideo();
-    }
-
-    public void prepare() {
-
     }
 
     public void cleanUp() {

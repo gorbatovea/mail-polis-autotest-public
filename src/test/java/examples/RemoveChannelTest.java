@@ -17,7 +17,7 @@ public class RemoveChannelTest extends TestBase {
         prepare();
     }
 
-    public void prepare() {
+    private void prepare() {
         LoginPage session = new LoginPage(driver);
         session.doLogin(this.loginBot);
         UserMainPage userMainPage = new UserMainPage(driver);

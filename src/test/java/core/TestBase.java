@@ -31,6 +31,6 @@ public abstract class TestBase {
         }
     }
 
-    abstract public void cleanUp();
+    protected abstract void cleanUp();
 
 }

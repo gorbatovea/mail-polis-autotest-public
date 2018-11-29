@@ -71,8 +71,8 @@ public class VideoPage extends PageBase {
         WebElement deleteButton = get(By.xpath("//div[@id='hook_Block_VideoVitrinaMovies']//div[@class='vid-card js-draggable']//a[@title='Delete']"));
         actions.moveToElement(deleteButton).click().build().perform();
         click("//input[@value='Delete']");
-        assertFalse(explicitWait(
-                ExpectedConditions.visibilityOfElementLocated(
+        assertTrue(explicitWait(
+                ExpectedConditions.invisibilityOfElementLocated(
                         By.xpath("//div[@id='hook_Block_VideoVitrinaMovies']//div[@class='vid-card js-draggable']")),
                 5,
                 500));
@@ -80,7 +80,7 @@ public class VideoPage extends PageBase {
 
     public void searchVideo() {
         typeKeys(By.xpath("//input[@class='search-input_it it']"), VIDEO_NAME);
-        assertFalse(explicitWait(
+        assertTrue(explicitWait(
                 ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//div[@class='vid-card_cnt']//*[text()='" + VIDEO_NAME + "']")),
                 5,
