@@ -26,7 +26,7 @@ public class LoginPage extends PageBase {
 
     @Override
     protected void check() {
-        assertTrue(
+        assertTrue("login page didn't appear",
                 explicitWait(
                         ExpectedConditions.visibilityOfElementLocated(
                                 By.xpath("//div[@class='anonym_login_cnt js-login-state']")),

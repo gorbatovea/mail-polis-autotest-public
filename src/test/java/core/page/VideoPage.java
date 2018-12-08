@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class VideoPage extends PageBase {
@@ -21,7 +20,7 @@ public class VideoPage extends PageBase {
 
     public void expandMyVideos() {
         click("//*[@id=\"vv_btn_myVideo\"]/span/span[2]");
-        assertTrue(explicitWait(
+        assertTrue("Can't locate menu", explicitWait(
                 ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='hook_Block_VideoVitrinaMyAlbumsMenu']")),
                 5,
                 500));
@@ -31,7 +30,7 @@ public class VideoPage extends PageBase {
         click("//*[@id='vv_btn_create_channel_left_menu']/div");
         typeKeys(By.xpath("//*[@id='vv-album-form']/div[1]/div/input"), CHANNEL_NAME);
         click("//*[@id='vv-album-form']/div[2]/input");
-        assertTrue(explicitWait(
+        assertTrue("can't locate created channel", explicitWait(
                 ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//div[@class='mml_ucard_n_g textWrap' and text()='" + CHANNEL_NAME + "']")),
                 5,
@@ -42,7 +41,7 @@ public class VideoPage extends PageBase {
         click("//div[@class='mml_ucard_n_g textWrap' and text()='" + CHANNEL_NAME + "']");
         click("//a[text()='Delete']");
         click("//input[@value='Delete']");
-        assertTrue(explicitWait(
+        assertTrue("removed channel didn't disappear",explicitWait(
                 ExpectedConditions.invisibilityOfElementLocated(
                         By.xpath("//div[@class='mml_ucard_n_g textWrap' and text()='" + CHANNEL_NAME + "']")),
                 5,
@@ -53,13 +52,13 @@ public class VideoPage extends PageBase {
         click("//a[@class='tico wl vv-upload-btn']");
         click("//span[@data-target='video_uploader_link']");
         typeKeys(By.xpath("//input[@name='st.vv_ugLink']"), VIDEO_URL);
-        assertTrue(explicitWait(
+        assertTrue("button doesn't appear", explicitWait(
                 ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//button[@class='vl_btn']")),
                 5,
                 500));
         click("//button[@class='vl_btn']");
-        assertTrue(explicitWait(
+        assertTrue("video didn't appear", explicitWait(
                 ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//div[@id='hook_Block_VideoVitrinaMovies']//div[@class='vid-card js-draggable']")),
                 5,
@@ -71,7 +70,7 @@ public class VideoPage extends PageBase {
         WebElement deleteButton = get(By.xpath("//div[@id='hook_Block_VideoVitrinaMovies']//div[@class='vid-card js-draggable']//a[@title='Delete']"));
         actions.moveToElement(deleteButton).click().build().perform();
         click("//input[@value='Delete']");
-        assertTrue(explicitWait(
+        assertTrue("video didn't disappear", explicitWait(
                 ExpectedConditions.invisibilityOfElementLocated(
                         By.xpath("//div[@id='hook_Block_VideoVitrinaMovies']//div[@class='vid-card js-draggable']")),
                 5,
@@ -80,7 +79,7 @@ public class VideoPage extends PageBase {
 
     public void searchVideo() {
         typeKeys(By.xpath("//input[@class='search-input_it it']"), VIDEO_NAME);
-        assertTrue(explicitWait(
+        assertTrue("can't locate video", explicitWait(
                 ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//div[@class='vid-card_cnt']//*[text()='" + VIDEO_NAME + "']")),
                 5,
@@ -89,7 +88,7 @@ public class VideoPage extends PageBase {
 
     @Override
     protected void check() {
-        assertTrue(explicitWait(ExpectedConditions.visibilityOfElementLocated(
+        assertTrue("video page didn't appear", explicitWait(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[@id='hook_Block_VideoVitrinaUploadButton']")),
                 5,
                 500));

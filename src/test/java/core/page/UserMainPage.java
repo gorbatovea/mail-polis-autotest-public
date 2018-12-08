@@ -23,7 +23,7 @@ public class UserMainPage extends PageBase {
 
     @Override
     protected void check() {
-    assertTrue(
+    assertTrue("main page didn't appear",
         explicitWait(
             ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[@id='hook_Block_Avatar']")),
