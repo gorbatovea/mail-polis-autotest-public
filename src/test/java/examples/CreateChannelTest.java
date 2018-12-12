@@ -9,7 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class CreateChannelTest extends TestBase {
-    protected Bot loginBot;
+    private static final String CHANNEL_NAME = "AutoTestChannel";
+
+    private Bot loginBot;
 
     @Before
     public void init() {
@@ -18,17 +20,19 @@ public class CreateChannelTest extends TestBase {
 
     @Test
     public void createChannel() {
-        LoginPage session = new LoginPage(driver);
-        session.doLogin(this.loginBot);
-        UserMainPage userMainPage = new UserMainPage(driver);
-        userMainPage.navigateToVideos();
-        VideoPage videoPage = new VideoPage(driver);
-        videoPage.expandMyVideos();
-        videoPage.createChannel();
+        new LoginPage(driver)
+                .doLogin(this.loginBot)
+                .navigateToVideos()
+                .expandMyVideos()
+                .popUpChannelCreationPage(CHANNEL_NAME)
+                .createChannel(CHANNEL_NAME)
+                .confirmChannelCreation(CHANNEL_NAME);
     }
 
     public void cleanUp() {
-        VideoPage videoPage = new VideoPage(driver);
-        videoPage.removeChannel();
+        new VideoPage(driver)
+                .chooseChannel(CHANNEL_NAME)
+                .deleteChannel(CHANNEL_NAME)
+                .confirmChannelDelete(CHANNEL_NAME);
     }
 }

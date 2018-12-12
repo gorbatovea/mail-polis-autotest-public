@@ -1,5 +1,7 @@
 package bot;
 
+import auth.AuthParams;
+
 public class Bot {
 
     private final String email;
@@ -19,6 +21,6 @@ public class Bot {
     }
 
     public static Bot generateDefault() {
-         return new Bot(new String(""), new String(""));
+         return new Bot(new String(AuthParams.EMAIL), new String(AuthParams.PASSWORD));
     }
 }

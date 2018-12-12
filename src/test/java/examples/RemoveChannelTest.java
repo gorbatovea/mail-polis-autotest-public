@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class RemoveChannelTest extends TestBase {
+    private static final String CHANNEL_NAME = "AutoTestChannel";
+
     protected Bot loginBot;
 
     @Before
@@ -18,23 +20,23 @@ public class RemoveChannelTest extends TestBase {
     }
 
     private void prepare() {
-        LoginPage session = new LoginPage(driver);
-        session.doLogin(this.loginBot);
-        UserMainPage userMainPage = new UserMainPage(driver);
-        userMainPage.navigateToVideos();
-        VideoPage videoPage = new VideoPage(driver);
-        videoPage.expandMyVideos();
-        videoPage.createChannel();
+        new LoginPage(driver)
+                .doLogin(this.loginBot)
+                .navigateToVideos()
+                .expandMyVideos()
+                .popUpChannelCreationPage(CHANNEL_NAME)
+                .createChannel(CHANNEL_NAME)
+                .confirmChannelCreation(CHANNEL_NAME);
         driver.get(baseUrl);
     }
 
     @Test
     public void removeChannel() {
-        UserMainPage userMainPage = new UserMainPage(driver);
-        userMainPage.navigateToVideos();
-        VideoPage videoPage = new VideoPage(driver);
-        videoPage.expandMyVideos();
-        videoPage.removeChannel();
+        new UserMainPage(driver)
+                .navigateToVideos()
+                .chooseChannel(CHANNEL_NAME)
+                .deleteChannel(CHANNEL_NAME)
+                .confirmChannelDelete(CHANNEL_NAME);
     }
 
     public void cleanUp() {

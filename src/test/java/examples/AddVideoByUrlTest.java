@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class AddVideoByUrlTest extends TestBase {
+    private static final String VIDEO_URL = "https://www.youtube.com/watch?v=tNHWjcCyoEk";
+    private static final String VIDEO_NAME = "CANON M3 CINEMATIC VIDEO TEST - Lakes | Cinematography | TechGenieT3G";
+
     protected Bot loginBot;
 
     @Before
@@ -18,17 +21,20 @@ public class AddVideoByUrlTest extends TestBase {
 
     @Test
     public void addVideoByUrl() {
-        LoginPage session = new LoginPage(driver);
-        session.doLogin(this.loginBot);
-        UserMainPage userMainPage = new UserMainPage(driver);
-        userMainPage.navigateToVideos();
-        VideoPage videoPage = new VideoPage(driver);
-        videoPage.expandMyVideos();
-        videoPage.addVideo();
+        new LoginPage(driver)
+                .doLogin(this.loginBot)
+                .navigateToVideos()
+                .expandMyVideos()
+                .addVideo(VIDEO_URL)
+                .chooseUrlUpload()
+                .uploadVideoByUrl(VIDEO_URL)
+                .confirmVideoAdd(VIDEO_NAME);
     }
 
     public void cleanUp() {
-        VideoPage videoPage = new VideoPage(driver);
-        videoPage.removeVideo();
+        new VideoPage(driver)
+                .removeVideo()
+                .delete()
+                .confirmVideoDelete(VIDEO_NAME);
     }
 }
