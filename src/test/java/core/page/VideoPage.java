@@ -102,7 +102,7 @@ public class VideoPage extends PageBase {
 
     public VideoPage confirmVideoDelete(final String name) {
         assertTrue("video didn't disappear",
-                explicitWait(ExpectedConditions.visibilityOfElementLocated(
+                explicitWait(ExpectedConditions.invisibilityOfElementLocated(
                         By.xpath(getVideoLocatorByName(name))),
                         5,
                         500));
